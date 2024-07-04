@@ -24,8 +24,13 @@ app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
 
-app.get('/api/:year-:month-:day', function(req, res) {
-  const date = new Date(parseInt(req.params.year), parseInt(req.params.month)-1, parseInt(req.params.day))
+app.get('/api/:date', function(req, res) {
+  
+  const splittedDate = req.params.date.split('-');
+  let date = new Date(parseInt(splittedDate[0]), parseInt(splittedDate[1])-1, parseInt(splittedDate[2]))
+  if(!date instanceof Date && isNaN(date.valueOf())) {
+    return res.json({error: "Invalid Date"})
+  }
   return res.json({
     unix: Math.round(date.getTime()),
     utc: date.toUTCString()

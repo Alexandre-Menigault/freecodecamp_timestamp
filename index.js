@@ -27,7 +27,7 @@ app.get("/api/hello", function (req, res) {
 app.get('/api/:year-:month-:day', function(req, res) {
   const date = new Date(parseInt(req.params.year), parseInt(req.params.month)-1, parseInt(req.params.day))
   return res.json({
-    unix: Math.round(date.getTime()/1000),
+    unix: Math.round(date.getTime()),
     utc: date.toUTCString()
   })
 })
